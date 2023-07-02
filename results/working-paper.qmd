@@ -1,0 +1,312 @@
+---
+title: "Verhältnis demokratischer und konstitutioneller Regression unter populistischen Regierungen"
+subtitle: "Eine empirische Analyse"
+format: pdf
+editor: visual
+documentclass: article
+author:
+  - name: Jasmin Sarah König^[University of Hamburg. Jasmin wurde durch die Deutsche Forschungsgemeinschaft (DFG) – GRK 2503 gefördert. Address for Correspondence jasmin.sarah.koenig@uni-hamburg.de]
+    email: jasmin.sarah.koenig@uni-hamburg.de
+    affiliation: University of Hamburg
+  - name: Tilko Swalve^[Leibniz University Hannover]
+bibliography: citation/lit.bib
+csl: citation/leviathan.csl
+classoption: abstract
+abstract: |
+  Populism and liberal democracy are – at least in parts – in conflict. Researchers have discussed a possible relationship between populist parties in government and democratic regression. In countries with sweeping populist majorities - such as Hungary - populists in power have undermined democratic institutions through constitutional changes. Our paper analyzes whether this mechanism is systematically applied by populists in government in Europe and Latin America. Using V-Dem and V-Party data, we investigate whether constitutional change leads to democratic regression more often under populist governments. The results from our multi-level model show that the relationship between populism and constitutional regression is ambiguous. 
+include-in-header: 
+  text:
+    \usepackage{lscape}
+        \newcommand{\blandscape}{\begin{landscape}}
+        \newcommand{\elandscape}{\end{landscape}}
+    \renewcommand{\abstractname}{Abstract}
+---
+
+```{r}
+#| include: false
+options(tinytex.verbose = TRUE)
+
+```
+
+<br>
+
+Accepted for [Peter Niesen (eds): Zur Diagnose demokratischer Regression. Leviathan, Sonderband 40. Im Erscheinen](https://www.nomos-shop.de/nomos/titel/zur-diagnose-demokratischer-regression-id-105862/)
+
+<br>
+
+For an English version, please get in touch!
+
+{{< pagebreak >}}
+
+# 1.Einleitung
+
+Populismus und liberale Demokratie sind -- zumindest in Teilen -- unvereinbar. Die anti-pluralistischen Elemente populistischer Ideologie sowie der Imperativ zur Durchsetzung des Mehrheitswillens stehen im Widerspruch zur Wahrung von Minderheitsrechten und dem Einfluss nicht-majoritärer Institutionen in liberalen Demokratien. Deshalb bringen viele Autorinnen und Autoren die immer häufiger gestellte Diagnose demokratischer Regression mit Populismus als einer treibender Kraft in Verbindung. [@Schafer.2021; @Ginsburg.2018; @Diamond.2021] Demokratischer Rück- oder Fortschritt geschieht jedoch nicht nur im Rahmen liberaldemokratischer Institutionen, sondern -- unter anderem -- auch auf der Ebene der Partizipation. Um das Verhältnis zwischen Populismus und demokratischer Regression genauer zu verstehen, analysieren wir, ob von populistischen Parteien vorgenommene Verfassungsänderungen zu konstitutioneller Regression führen, also zu einem Rückgang der Qualität von liberaldemokratischen Institutionen oder Partizipation.
+
+Immer wieder wird im Kontext von Populismus und demokratischer Regression die Bedeutung von Verfassungsänderungen diskutiert.[@Landau.2013; @Scheppele.2018; @Huq.2018; @Muller.2017b; @Muller.2017, @Blokker.2020] Die Annahme, dass Populismus häufiger zu demokratischer Regression durch Verfassungsreformen führt, beruht darauf, dass die populistische Ideologie in einem besonderen Spannungsverhältnis zum Konstitutionalismus steht. Im Populismus wird Recht als Ergebnis des „Volkswillens" und damit als politisch verstanden.[@Blokker.2019] Dies legt nahe, dass Verfassungsreformen unter populistischen Regierungen häufiger geschehen und dabei checks and balances untergraben werden.
+
+Anhand von Daten des V-Dem[@Vdem.2021] und V-Party[@VParty.2022] sowie des Comparative Constitutions Project[@ComparativeConstitutions.2005] untersuchen wir, ob diese Annahme auch empirisch belegt werden kann. Wir tragen damit zur aktuellen Diskussion darüber bei, in welchem Verhältnis Populismus und demokratische Regression zueinander stehen. So behaupten beispielsweise Schäfer und Zürn[@Schafer.2021] auf Basis von Daten des V-Dem Projekts für acht ausgewählte Länder einen negativen Einfluss von populistischer Regierungsverantwortung insbesondere auf deliberative, elektorale, und liberale Demokratie. Anders als jene Autoren kombinieren wir kurze Fallstudien und Large-N Analysen, um die Generalisierbarkeit der Ergebnisse zu überprüfen.
+
+Der Begriff der demokratischen Regression und die dahinter stehenden Mechanismen sind in der Literatur umstritten.[@Bermeo.2016; @Karolewski.2021; @Jee.2021; @Wolkenstein.2022; @Waldner.2018] Wir untersuchen deshalb in diesem Artikel einen bestimmten Aspekt demokratischen Rückschritts, die konstitutionelle Regression. Um Demokratien zu unterminieren, braucht es häufig Verfassungsänderungen, die den Deckmantel demokratischen Handelns intakt halten.[@Scheppele.2018] Wir verstehen unter konstitutioneller Regression Verfassungsänderungen, die zu einem Rückgang demokratischer Qualität führen. Mit diesem Ansatz untersuchen wir, ob ein Zusammenhang zwischen Verfassungsänderungen durch populistische Regierungen und demokratischer Regression, auf der Ebene von liberaldemokratischer Institutionen oder Partizipation, empirisch belegbar ist.
+
+Um uns diesen Fragen zu nähern, analysieren wir in einer Large-N Analyse den Einfluss von Verfassungsänderungen auf die Demokratiequalität unter populistischen und nicht-populistischen Regierungen. Unsere Ergebnisse zeigen, dass sich über Verfassungsänderungen durch populistische Regierungsparteien keine einheitliche Aussage treffen lässt. Vielmehr finden wir deutliche geographische Unterschiede.
+
+Wir widmen uns in einem Exkurs außerdem der Frage, ob demokratische Regression nur auf der Basis konstitutioneller Regression geschehen kann. Wir diskutieren die Relevanz von Unterschieden zwischen Änderungen in einfachem Recht und Verfassungsrecht. Anhand zwei kurzer Fallstudien vergleichen wir die Entwicklungen in Ungarn und Polen in den letzten zwanzig Jahren. Dabei zeigt sich, dass ein anhand der Datenlage ähnlicher Rückgang der Demokratiequalität in beiden Ländern sowohl mit konstitutioneller Regression als auch mit Änderungen von Gesetzen unterhalb der Verfassungsebene einhergehen kann.
+
+# 2. Konstitutionelle Regression und Populismus
+
+Um den Zusammenhang zwischen Populismus und konstitutioneller Regression zu erörtern, führen wir zuerst den Begriff demokratischer Regression ein. Anhand dieser Diskussion zeigen wir auf, dass Recht eine besondere Bedeutung im Prozess demokratischer Regression hat. Wir diskutieren verschiedene Ansätze, die sich mit der Bedeutung von Recht in demokratischer Regression auseinandersetzen und beschreiben unser Verständnis von konstitutioneller Regression. Im nächsten Schritt erläutern wir anhand der Definition von Populismus als dünner Ideologie[@Mudde.2004] das Verhältnis von Populismus und Konstitutionalismus.
+
+## 2.1 Definition demokratischer Regression
+
+Demokratische Regression bezeichnet einen Rückgang demokratischer Qualität. Was darunter zu verstehen ist, ist jedoch umstritten. [@Gerschewski.2021] Worin sich die Veröffentlichungen zu dem Thema einig sind, ist, dass demokratische Regression sich heutzutage langsamer vollzieht und meist von (zumindest nominell) demokratisch gewählten Regierungen betrieben wird. In der Vergangenheit wurden demokratische Systeme häufig durch Putsche untergraben.[@Bermeo.2016] Heutzutage unterminieren Amtsinhaber und Amtsinhaberinnen, die ihre Macht sichern wollen, demokratische Regeln und Werte und bringen das System damit ins Wanken.[@Bermeo.2016; @Huq.2018; @Levitsky.2018; @Svolik.2015]
+
+An dieser Stelle endet jedoch die Einigkeit in den Definitionen demokratischer Regression. Einige Autoren und Autorinnen argumentieren, dass demokratische Regression sich immer innerhalb einer Demokratie abspiele und somit nie den Zusammenbruch einer Demokratie beschreiben kann.[@TOMINI.2018] Andere Autoren und Autorinnen sehen auch ein hybrides System zwischen Demokratie und Autokratie als mögliches Ergebnis.[@Bermeo.2016; @Huq.2018] In unserer Analyse wenden wir letzteres Verständnis an und inkludieren auch Zeiträume, in denen Staaten bereits als elektorale (nicht aber geschlossene) Autokratien galten, um ein möglichst umfassendes Verständnis des Einflusses von Populismus auf konstitutionelle Regression zu gewinnen.
+
+Als Kernmechanismus demokratischer Regression wird meist executive aggrandizement, die Stärkung exekutiver Macht bei gleichzeitiger Einschränkung der Vetospieler und Opposition, beschrieben.[@Bermeo.2016; @Ginsburg.2018; @Scheppele.2018, S. 549; @Satrio.2018, S. 276-277; @Karolewski.2021, S. 313; @Waldner.2018, S. 95; @Khaitan.2019, S. 344; @Diamond.2021]\] Im Zuge demokratischer Regression werden die checks and balances innerhalb des politischen Systems geschwächt, sodass die Regierung immer weniger Kontrollmechanismen unterliegt. Welche weiteren Mechanismen zur demokratischen Regression gehören, unterscheidet sich jedoch stark nach Definition. Einige Autoren und Autorinnen sprechen nur von demokratischer Regression, wenn auch freie Wahlen eingeschränkt werden, indem beispielsweise Wahlkreise neu zugeschnitten, die Medienpräsenz der Kandidierenden manipuliert oder die Wahlteilnahme für bestimmte Gruppen erschwert wird.[Vgl. @Huq.2018, S. 83; @Waldner.2018, S. 95] Ebenso werden die Einschränkung von Opposition, Pressefreiheit, Bewegungsfreiheit, Vereinigungsfreiheit sowie Wissenschaft und Medien als Elemente demokratischer Regression diskutiert.[Vgl. @Huq.2018, S. 83; @TOMINI.2018, S. 693; @Levitsky.2018; @Diamond.2021] Seltener genannt werden ein Rückgang in der Partizipation der Bürger und Bürgerinnen,[Vgl. @Waldner.2018, S. 95] zum Beispiel durch sinkende Wahlbeteiligung oder einen Abbau direktdemokratischer Elemente, sowie Rückschritte in der Inklusion von benachteiligten Bevölkerungsgruppen.[Vgl. @TOMINI.2018, S. 693]
+
+Im Diskurs über demokratische Regressionen stehen häufig die Schwächung liberaldemokratischer Institutionen und (in-)formeller Normen im Vordergrund.[Vgl. @Bermeo.2016; @Levitsky.2018; @Diamond.2021] Dieser Fokus wird immer häufiger kritisiert und es wird vermehrt auf die gesellschaftliche Ebene von demokratischer Regression verwiesen[Vgl. @Karolewski.2021; @Wolkenstein.2022; @Schafer.2021], da sich beispielsweise die Einstellungen der Bürger und Bürgerinnen zur Demokratie, Inklusion oder Beteiligungsmechanismen negativ verändern können. Eine Demokratie kann auch dann ihren Zweck verfehlen und an Qualität verlieren, wenn zwar alle Institutionen noch intakt sind, die Bürgerinnen und Bürger jedoch nicht mehr am politischen Prozess beteiligt sein wollen und in die Passivität rutschen. Schäfer und Zürn verweisen zusätzlich darauf, dass Repräsentation nicht immer responsiv ist und die Interessen verschiedener gesellschaftlicher Gruppen nicht immer gleich gut repräsentiert sind.[@Schafer.2021, S. 96-101] Auch ein wachsender Mangel an Responsivität und eine sich verstärkende Ungleichheit in der Repräsentation verschiedener gesellschaftlicher Gruppen kann einen Rückgang demokratischer Qualität bedeuten.
+
+Wenn von demokratischer Regression im Sinne von executive aggrandizement gesprochen wird, ist also meist ein Rückbau liberaldemokratischer Institutionen gemeint. Demokratie besteht jedoch aus mehr Dimensionen als der Ebene liberaldemokratischer Institutionen. Demokratischen Rückschritt kann es zum Beispiel auch im Bereich demokratischer Beteiligung oder Inklusion geben. Wir tragen dem in unserer Analyse Rechnung, indem wir zwei Indizes zur Messung demokratischer Regression heranziehen: einen institutionellen und einen zivilgesellschaftlichen.
+
+### Die Bedeutung des Rechts in demokratischer Regression
+
+Liberaldemokratische Regression ist eng verbunden mit Rechtsänderungen. In vielen liberalen Demokratien sind die beschriebenen Normen und Institutionen in Verfassungen, zumindest jedoch in einfachem Recht, verankert. Dies gibt dem Mechanismus von (Verfassungs-)Rechtsänderungen innerhalb des Prozesses demokratischer Regression eine besondere Bedeutung.[Vgl. @Huq.2018; @Scheppele.2018]
+
+Insbesondere wenn Amtsinhaber und Amtsinhaberinnen darauf abzielen, dass ihr Staat weiterhin demokratisch erscheint, gewinnt Recht im Prozess demokratischer Regression an Gewicht.[Vgl. @Landau.2013] Bei einem offensichtlich verfassungswidrigen Akt wie einem Putsch hat es wenig Bedeutung, ob das Recht angepasst wird. Heutzutage findet demokratische Regression jedoch häufig unter einem Deckmantel statt. Rechtsveränderungen können ein wichtiger Teil dieses Deckmantels sein, um die autokratischen Ziele der demokratisch gewählten Amtsinhaber und Amtsinhaberinnen zu legitimieren.[Vgl. @Scheppele.2018]
+
+Die Unterminierung liberaldemokratischer Institutionen durch (Verfassungs-)Rechtsänderungen wurde in den letzten Jahren unter Bezeichnungen wie constitutional retrogression[Vgl. @Huq.2018], autocratic legalism[Vgl. @Scheppele.2018] und abusive constitutionalism[Vgl. @Landau.2013] debattiert. Die Relevanz von Recht im Zuge demokratischer Regression lässt sich alleine aus der Vielzahl an Begriffen ablesen, die in den vergangenen Jahren entstanden sind, um diesen Prozess zu beschreiben. Fast jeder Artikel, der sich mit demokratischer Regression befasst, thematisiert auch Rechtsänderungen.[Vgl. @Scheppele.2018; @Gerschewski.2021; @Karolewski.2021; @Huq.2018; @Khaitan.2019; @Bermeo.2016]
+
+Der Begriff konstitutioneller Retrogression verweist bereits auf die Relevanz von Verfassungen im Zusammenhang mit demokratischer Regression.[Vgl. @Huq.2018] In dessen Zentrum stehen für die Autoren die Einschränkung von Wahlen, Meinungs- und Versammlungsfreiheit sowie der Rechtsstaatlichkeit. Unter Rechtsstaatlichkeit verstehen die Autoren „stability, predictability, and integrity of law and legal institutions".[Vgl. @Huq.2018, S. 87-88] Zwar richtet sich diese Definition auf verschiedene Rechte, ihre Ausgestaltung und das Rechtssystem, die Autoren verweisen jedoch explizit darauf, dass Verfassungsänderungen nur ein Mechanismus von constitutional retrogression sind.[Vgl. @Huq.2018, S. 124] Huq und Ginsburg schließen in ihren Begriff auch Rechtsänderungen ein, die den Charakter der Verfassung verletzen, jedoch keiner Verfassungsänderung bedürfen.  Ein ähnliches Konzept verfolgt Scheppele mit dem Begriff des autocratic legalism.[Vgl. @Scheppele.2018] Auch bei ihr geht es um Änderungen  von Verfassungen oder einfachen Rechts. In ihrer Arbeit widmet sie sich jedoch vorrangig Einschränkungen der Gewaltenteilung sowie der Zentralisierung exekutiver Macht.
+
+Der Begriff des abusive constitutionalism beschränkt sich auf Verfassungsänderungen oder -erneuerungen, mit denen die Demokratie unterminiert werden soll.[Vgl. @Landau.2018] Ziel sei dabei -- einhergehend mit den zuvor erörterten Elementen demokratischer Regression -- die Zentralisierung von Macht in der Exekutive, die Einschränkung von Vetospielern und Wahlen sowie die Einschränkung von Minderheiten- und Grundrechten.
+
+Die Relevanz des Unterschiedes zwischen Verfassungsrecht und einfachem Recht zeigt sich in unseren Fallbeispielanalysen von Ungarn und Polen: Während in Ungarn die Verfassung geändert wurde, um die Unabhängigkeit der Justiz einzuschränken, war dies in Polen auch ohne diesen Schritt -- und somit mit einer kleineren Parlamentsmehrheit -- möglich. Wir argumentieren jedoch, dass die gemeinsame Kategorisierung beider Regressionstypen der Situation nicht gerecht wird, auch wenn sie sich ähneln: Ein Umbau liberaldemokratischer Institutionen durch Verfassungsänderungen ist ein nachhaltigerer Schritt. Um konstitutionelle Regression rückgängig zu machen, sind in vielen Staaten die größeren oder langfristigeren Mehrheiten erforderlich, die zur Verfassungsänderung notwendig sind. Wir diskutieren diese Problematik anhand des Fallbeispiels Ungarn im empirischen Abschnitt noch ausführlicher.
+
+Deshalb baut unser Verständnis von konstitutioneller Regression auf den Begriff des abusive constitutionalism auf. In Übereinstimmung mit Landau, beziehen wir nur Verfassungsänderungen in unser Konzept ein. Wir verstehen konstitutionelle Regression also als eine oder mehrere Verfassungsänderungen, welche zu einem Rückgang demokratischer Qualität führen (ganz im Sinne der minimalen Definition, auf die sich Autoren und Autorinnen bezüglich demokratischer Regression einigen konnten). Unser Verständnis von demokratischer und somit konstitutioneller Regression geht damit über die institutionenbezogenen Definitionen von Scheppele, Landau, Huq und Ginsburg hinaus. Wir inkludieren sowohl die Qualität von liberaldemokratischen Institutionen als auch partizipative Elemente von Demokratie, analysieren diese jedoch getrennt. Wie wir in der Diskussion des Populismus im kommenden Abschnitt zeigen, ist diese Unterscheidung zum einen wichtig, um den Effekt von Populismus auf konstitutionelle Regression einschätzen zu können, zum anderen greifen wir damit die Kritik von Autoren und Autorinnen auf, die den Begriff der demokratischen Regression als zu institutionenbezogen einordnen.[Vgl. @Karolewski.2021; @Wolkenstein.2022]
+
+## 2.2 Populismus und konstitutionelle Regression
+
+Die Diskussion um demokratische Regression bringt diese immer wieder in Verbindung mit der wachsenden Anzahl von Fällen, in denen populistische Parteien an der Ausübung von Regierungsgewalt beteiligt sind.[Vgl. @Schafer.2021; @Ginsburg.2018; @Diamond.2021] Wie oben bereits festgehalten, stellt sich mit Blick auf das Spannungsverhältnis zwischen Populismus und Konstitutionalismus die Frage, ob Verfassungsänderungen durch populistische Parteien zu einer Verschlechterung der Demokratiequalität führen. Wir führen in diesem Abschnitt zuerst den Begriff des Populismus ein, bevor wir im nächsten Schritt sein Verhältnis zu Konstitutionalismus und Demokratiequalität diskutieren.
+
+Definition
+
+Die in der Politikwissenschaft am häufigsten genutzte Definition von Populismus bezeichnet diesen als eine dünne Ideologie.[Vgl. @Mudde.2004] Populismus taucht meist angebunden an eine „dichtere" Wirtsideologie auf, beispielsweise den Faschismus und den Sozialismus, und hat dennoch einen eigenen ideologischen Kern. Abts und Rummens beschreiben diesen Kern als eine Frage der Machtverteilung.[Vgl. @Abts.2007, S. 409] Die populistische Ideologie beruht auf dem Mehrheitsprinzip, in der einzig und allein der „Wille des Volkes" umgesetzt werden soll. Der Volkswille ist der Ideologie zufolge homogen und demnach eindeutig zu erkennen.[Vgl. @Abts.2007; @Mudde.2004] Mit dem Ziel, den „wahren" Volkswillen durchzusetzen, teilt der Populismus die Gesellschaft in die „bösen Eliten" und das „gute Volk".[Vgl. @Mudde.2004, S. 543] Wird der angebliche „Volkswille" nicht umgesetzt, sehen Populisten und Populistinnen die „böse Elite" am Werk.
+
+Populismus und liberale Demokratie stehen demnach im Konflikt. Während Populismus die pure und uneingeschränkte Volkssouveränität als das Ideal anstrebt, gehören zu liberaler Demokratie Gewaltenteilung, Minderheitenrechte und Vetospieler. In einer liberalen Demokratie sind sowohl innerhalb als auch zwischen den Gewalten checks and balances eingebaut, die eine Machtzentrierung verhindern. Die liberale Demokratie befindet sich somit stets im Spannungsfeld zwischen Institutionalisierung und Volkssouveränität.[Vgl. @Canovan.1999] Diese inhärente Inkongruenz ist stets Teil liberaler Demokratien. Populismus jedoch hat eine klare Ausrichtung zwischen den Polen: Der „Wille des Volkes" muss schnellstmöglich und ohne Hindernisse umgesetzt werden. Institutionen und Normen erfüllen ausschließlich den Zweck, diesen Prozess zu unterstützen, dürfen ihn jedoch nie behindern.
+
+### Populismus und Konstitutionalismus
+
+Das Ziel, einen angeblichen „Volkswillen" direkt umzusetzen, führt zu einem besonderen Verhältnis von Populismus und Konstitutionalismus. Auch die Verfassung soll den Mehrheitswillen des Volkes widerspiegeln und wird somit nicht als fest verankerte, selten veränderte Institution, sondern als rein politisch betrachtet.[Vgl. @Blokker.2020d; @Mazzoleni.2020]
+
+Populismus beruht auf der Vorherrschaft des Politischen.[Vgl. @Mudde.2012, S. 17; @Blokker.2019d] Recht kann dementsprechend nur das Ergebnis politischer Prozesse ausdrücken, kann jedoch niemals ihre Einschränkung rechtfertigen. Der Anspruch eines neutralen Rechts, das über dem politischen Prozess steht, wird vom Populismus nicht anerkannt. Stattdessen wird das Recht als rein politisches Medium betrachtet.
+
+Populistische Parteien streben nicht danach, Verfassungen abzuschaffen, sondern sie im Sinne des angeblichen „Volkswillen" zu re-politisieren.[Vgl. @Mazzoleni.2020; @Muller.2017b] Damit dies gelingen kann, sollten Verfassungen gemäß dem populistischen Ideal einfach und schnell zu verändern sein, um stets den Mehrheitswillen zu spiegeln.[Vgl. @Fabbrizi.2020] Mit diesem Verfassungsverständnis hebt sich innerhalb der populistischen Ideologie auch die Unterscheidung zwischen einfachem Recht und Verfassungsrecht auf.[Vgl. @Blokker.2020d] Wenn Verfassungsrecht im alltäglichen politischen Prozess nicht mehr als Leitlinie, sondern nur noch als Ausdrucksform des Politischen betrachtet wird, verliert es seine hervorgehobene, besonders abgesicherte Stellung.
+
+### Populismus und konstitutionelle Regression
+
+Dieses Verhältnis von Populismus und Konstitutionalismus wirft die Frage auf, ob konstitutionelle Regression und Populismus im Zusammenhang miteinander stehen. Dies ist nur mit Blick auf den größeren Diskurs über den Zusammenhang zwischen Populismus und Demokratiequalität zu beantworten. Schäfer und Zürn argumentieren, dass populistische Parteien weder in der Opposition noch an der Macht -- als Junior-, Seniorpartner oder in einer Alleinregierung -- positiven Einfluss, und als stärkere Partei in der Regierung sogar einen negativen Effekt auf die Demokratiequalität haben.[Vgl. @Schafer.2021, S. 171-182] In der weiteren Literatur ist das Verhältnis von Demokratie und Populismus jedoch deutlich umstrittener.[Vgl. @Canovan.1999; @Meny.2002b; @Mouffe.2005; @Laclau.2005; @Abts.2007; @Mudde.2012b; @KONIG.2022b] So konnten wir beispielsweise in einer Untersuchung der Regierungsbeteiligung der populistischen FPÖ in Österreich keine überdurchschnittlichen Überschreitungen konstitutioneller Grenzen in deren Regierungszeit feststellen.[@KONIG.2022b] Zwar sind sich viele Autoren und Autorinnen einig, dass Populismus und liberale Demokratie zumindest in Teilen in Konflikt miteinander stehen,[Vgl. @Mudde.2012; @Muller.2017b; @Abts.2007; @LaTorre.2020] dennoch verweisen einige auch darauf, dass der Populismus durchaus einen korrigierenden Effekt auf eine wenig responsive, stark formalisierte Demokratie haben kann.[Vgl. @LaTorre.2020; @Mudde.2012b; @Canovan.1999]
+
+Was sind die Inhalte, zugunsten derer die Verfassung von populistischen Parteien politisiert wird? Der Anspruch eines „homogenen Volkes" mit einem einheitlichen Willen spiegelt sich auch im Verfassungsverständnis des Populismus wider. Während in liberaldemokratischen Verfassungen Grund- und Menschenrechte, Gewaltenteilung und heutzutage auch die internationale Einbindung der Verfassung im Zentrum stehen, rückt der Populismus das (meist nationale) Kollektiv in den Vordergrund.[Vgl. @Blokker.2019; @Scheppele.2018; @Fabbrizi.2020] Verfassungen sollen die Umsetzung des „Volkswillens" unterstützen und die populistische Interpretation des Volkes manifestieren. Das Verständnis des Volkes als homogene Einheit führt somit zum Ausschluss einiger Menschen aus der Verfassung, sodass diese häufig ihren pluralistischen Anspruch verliert.[Vgl. @Muller.2017b] In den Worten Blokkers: "Constituent power, rather than being the power of the multitude, becomes the power of the majority."[@Blokker.2020d]
+
+Sowohl Blokker[Vgl. @Blokker.2019d] als auch Bugaric[Vgl. @Bugaric.2019] verweisen auf die Varianz populistischer Parteien und argumentieren, dass populistische Verfassungsänderungen nicht nur negative Effekte auf die Demokratiequalität haben. Einzig und alleine eine Präferenz für häufige Verfassungsänderungen ist keine Gefährdung der Demokratie.[Vgl. @Tushnet.2021, S. 73] Da die populistische Ideologie sich um Volkssouveränität herum zentriert, haben Beteiligungsmöglichkeiten für Populisten und Populistinnen eine besondere Bedeutung. Insbesondere die Stärkung partizipativer Elemente von Verfassungen wird immer wieder als positiver Effekt von populistischen Verfassungsänderungen hervorgehoben.[@Blokker.2019c; @Mudde.2013b; @LaTorre.2020, S. 1464] In Lateinamerika wurden durch Verfassungsänderungen, die auf populistische Akteure zurückgehen, außerdem soziale Rechte[Vgl. @LaTorre.2020, S. 1464] und die Einbindung von indigenen Gruppen in den politischen Prozess gestärkt.[Vgl. @Mudde.2013b, S. 162] Je schlechter die bisherigen Partizipationsmechanismen eines demokratischen Systems sind, desto stärker kann der positive Einfluss durch populistische Verfassungsänderungen sein.
+
+In der Debatte um den Effekt von Populismus auf liberale Demokratien wird immer wieder auf lateinamerikanische Fälle verwiesen, in denen partizipative Elemente gestärkt wurden.[Vgl. @Mudde.2013b; @Blokker.2019c] Schäfer und Zürn betrachten in ihrer Analyse jedoch nur zwei lateinamerikanische Fälle, Venezuela und Brasilien.[Vgl. @Schafer.2021, S. 173] Während in Venezuela ein Linkspopulist an der Macht ist, regiert in Brasilien ein Rechtspopulist. Letzteres ist untypisch für das vom Linkspopulismus geprägte Lateinamerika.[Vgl. @deLaTorre.2017] Venezuela gilt dem neusten V-Dem Report zu Folge zu den autokratischsten Staaten weltweit.[Vgl. @Boese.2022] Indem sie kein Beispiel für ein linkspopulistisches Regime mit höherer Demokratiequalität erörtern, verstellen sich Schäfer und Zürn den Blick für den Zusammenhang zwischen Demokratie und populistischen Regierungen in Lateinamerika.
+
+Insgesamt scheint die Fallauswahl der acht Beispiele, anhand derer die Autoren den Einfluss von populistischen Alleinregierungen untersuchen, nicht unabhängig von ihrer abhängigen Variablen, da ausschließlich elektorale Autokratien sowie Staaten mit starkem Absinken demokratischer Qualität betrachtet werden.[Vgl. @Schafer.2021, S. 173] Staaten, in denen der Effekt von Populismus auf Demokratiequalität nicht so eindeutig einzuordnen ist, lassen die Autoren außen vor (so zum Beispiel Griechenland oder Bolivien[Vgl. @Mudde.2013b; @Blokker.2019d] ). Zwar stellen Schäfer und Zürn die These auf, dass der gegenwärtige Populismus „vorrangig ein autoritärer Populismus"[Vgl. @Schafer.2021, S. 167] sei, untersuchen diese Annahme allerdings nicht empirisch. Schlüsse lässt ihre Untersuchung daher ausschließlich für die inkludierten acht Staaten zu, nicht jedoch grundsätzlich für das Verhältnis von Populismus und Demokratie. Was den negativen Effekt auf Demokratiequalität in diesen Fällen treibt, ob es der Autoritarismus oder der Populismus ist, bleibt unklar. Dies gilt auch für die Frage, ob der vorherrschende Populismus tatsächlich ein autoritärer ist und welchen Effekt Populismus auf Demokratiequalität hat.
+
+Trotz der Verweise auf mögliche positive Effekte populistischer Verfassungsänderungen, verweisen die meisten Autoren und Autorinnen darauf, dass diese positiven Entwicklungen ihren Preis haben. Seiner positiven Einstellung zu Partizipation und Volkssouveränität steht der majoritäre Charakter des Populismus entgegen. Das Verständnis des Volkswillens als homogen führt oft dazu, dass populistische Regierungen Verfassungselemente schwächen, die den gesellschaftlichen Pluralismus und die institutionalisierte Gewaltenteilung schützen: Meist werden durch populistische Verfassungsänderungen Oppositionsrechte sowie der politische Wettbewerb eingeschränkt und die Macht der Exekutive gestärkt.[Vgl. @LaTorre.2020; @Mudde.2013b; @LaTorre.2018] Die Vorstellung des Volks in populistischen Parteien schließt notwendigerweise Teile der Gesellschaft aus, da ansonsten die Idee uneingeschränkter Homogenität nicht haltbar ist.[Vgl. @Albertazzi.2013; @Urbinati.2019; @LaTorre.2020, S. 1464] Die partizipativen Elemente populistischer Verfassungsänderungen sind somit nur geeignet, Teilen der Gesellschaft die Beteiligung zu ermöglichen. Gleichzeitig entrechten sie jedoch häufig andere Teile, da sie das Kollektiv gegenüber individuellen Grundrechten privilegieren.[Vgl. @Scheppele.2018]
+
+Das Verhältnis von Populismus und Demokratie ist insbesondere unter Berücksichtigung verschiedener demokratischer Dimensionen -- wie Partizipation, Inklusion, Repräsentations oder nicht-majoritären Institutionen -- komplexer als das oft gezeichnete Schwarzweißbild der populistischen Gefahr für die Demokratie. Viele Theorien des Populismus verweisen deutlich darauf, dass populistische Akteurinnen und Akteure einen anderen Fokus in ihrer Vorstellung demokratischer Systeme haben. Während es naheliegend wäre, dass nicht-majoritäre Institutionen unter populistischen Regierungen leiden, gilt dies nicht unbedingt für andere demokratische Dimensionen wie beispielsweise Partizipation.[Vgl. @Blokker.2019c; @Mudde.2013b; @LaTorre.2020, S. 72] Empirisch untersuchen wir deshalb den Einfluss von Verfassungsänderungen auf Demokratiequalität mit Blick auf zwei dieser Dimensionen: Partizipation und liberaldemokratische Institutionen.
+
+Eine weiterführende Frage, die in diesem Beitrag leider keinen Platz finden kann, ist, welche Beteiligungsmechanismen bei Verfassungsänderungen ermöglicht werden.[Vgl @LaTorre.2018] Um dem Anspruch allgemeiner Beteiligung gerecht zu werden, muss aus demokratischer Perspektive auch die Gestaltung der neuen Verfassung oder der Verfassungsänderungen inklusiv ablaufen. Wird über die neue Verfassung jedoch top down durch eine populistische Regierung entschieden, deutet dies eher auf eine autoritäre Entwicklung hin.[@LaTorre.2020] Leider sind zu den vielfältigen Prozessen von Verfassungsreformen keine vergleichbaren Daten vorhanden. Wir beschränken uns deshalb auf die Analyse des Effekts von Verfassungsänderungen durch populistische Regierungen auf Demokratiequalität. Im kommenden Abschnitt stellen wir die dazu verwendeten Daten und unsere empirische Strategie vor.
+
+# 3. Daten und empirische Strategie
+
+Kommen Verfassungsänderungen unter populistischen Regierungen zustande, stellt sich die Frage, ob diese stets einen negativen Einfluss auf die Demokratiequalität haben. Um einen Überblick über die Auswirkungen von Verfassungsänderungen durch populistische Regierungen zu gewinnen, nutzen wir Daten des V-Dem und des V-Party Projekts sowie des Comparative Constitutions Projekts.
+
+Zur Ermittlung des Populismus-Werts einer Regierung ziehen wir den Populismus-Index aus dem V-Party Projekt[Vgl. @VParty.2022] heran, welcher auf Basis von Experteneinschätzungen zur Rhetorik von Parteivertreterinnen und -vertretern bezüglich ihrer anti-elitären Einstellungen und ihrer Bezugnahme auf das Volk als homogene Gruppe Parteien auf einer Populismus-Skala einstuft (v2xpa_popul). Wenn eine Regierung aus mehreren Parteien besteht, wurde ein Mittelwert aus den Populismus-Scores der beteiligten Parteien gebildet, jeweils gewichtet anhand ihrer relativen Stärke (gemessen am prozentualen Anteil der Sitze) innerhalb der Regierungskoalition. Daraus ergibt sich ein Populismusindex für Regierungen zwischen 0 (nicht populistisch) und 1 (populistisch).
+
+Die Daten zu Verfassungsänderungen kommen vom Comparative Constitutions Projekt,[Vgl. @ComparativeConstitutions.2005] welches Verfassungen und Verfassungsänderungen dokumentiert. Wir nutzen die binäre Variable „evnt", welche jährlich Veränderungen sowie Neufassungen von Verfassungen erfasst (0 -- keine Veränderung, 1 -- Veränderung).
+
+Zur Messung von Demokratiequalität verwenden wir, wie auch Schäfer und Zürn,[Vgl. @Schafer.2021, S. 171-194] den Index liberaler Demokratie (v2x_libdem) aus dem Varieties of Democracies (V-Dem) Projekt[Vgl. @Vdem.2021]. Dieser Index beschreibt auf einer Skala von 0 bis 1 in welchem Umfang individuelle Rechte und Minderheitenrechte gegen Übergriffe des Staates und der Mehrheit geschützt werden. Dabei setzt sich der Index zusammen aus zwei Komponenten: Experteneinschätzungen zur Umsetzung der Prinzipien liberaler Demokratie im Land (v2x_liberal) und Experteneinschätzungen darüber, inwieweit im Land die Ideale elektoraler Demokratie (v2x_polyarchy) erfüllt werden.
+
+Darüber hinaus verwenden wir die Variable „v2x_cspart" aus dem V-Dem Datensatz. Diese Variable ist ein Index, welcher abbildet, inwieweit sich Organisationen der Zivilgesellschaft (z.B. Interessengruppen, Gewerkschaften, Wohltätigkeitsorganisation, etc.) politisches Gehör verschaffen können. Mehrere Wissenschaftler und Wissenschaftlerinnen haben den Fokus auf rein institutionenbezogene Messinstrumente kritisiert und stattdessen partizipative Elemente von Demokratie betont. Die Einbeziehung des Zivilgesellschaftsindex in unsere Analyse soll dieser Kritik und unserem weiteren Verständnis von konstitutioneller Regression Rechnung tragen.
+
+float
+
+Tabelle 1: Verfassungsereignisse zwischen 1991 und 2020 durch populistische Regierungen (gewichteter Populismus-Score der Regierung \> 0,5)
+
+Um eine Vergleichbarkeit des Populismus- und Demokratiebegriffs zu gewährleisten, beschränken wir uns in der Analyse auf 40 europäische und später 19 lateinamerikanische Länder über den Zeitraum von 1991 bis 2020. Land-Jahr Beobachtungen, welche vom V-Dem Projekt als geschlossene Autokratien eingestuft werden, haben wir von der Analyse ausgeschlossen. Insgesamt besteht unser Datenpanel aus 1740 Land-Jahr Beobachtungen. Von diesen finden in 595 Beobachtungen Verfassungsänderungen statt. Verfassungsereignisse durch Regierungen mit einem hohen Populismus-Score von mehr als 0,5 sind jedoch relativ selten: Nur 75 Beobachtungen erfüllen dieses Kriterium. Unter Verfassungsereignissen verstehen wir sowohl Verfassungsänderungen als auch die Einführung einer vollständig neuen Verfassung. Tabelle 1 gibt einen Überblick über diese Fälle. In Europa sind mit Ausnahme von Italien und Malta Verfassungsänderungen durch populistische Regierungen augenscheinlich ein eher osteuropäisches Phänomen. Ebenfalls bemerkenswert ist, dass es sich vor allem um rechtspopulistische Regierungen handelt, die Verfassungsänderungen implementieren konnten. Ein anderes Bild zeigt sich in Lateinamerika. Hier sind Verfassungsänderungen überwiegend durch linkspopulistische Regierungen durchgeführt worden. Da sich nicht alle Regierungen eindeutig auf einer Links-Rechts-Skala einordnen lassen, verzichten wir darauf, den Effekt von Links- und Rechtspopulismus auf die Demokratiequalität separat zu modellieren.
+
+Abbildung 1 zeigt die Verteilungen des Populismusindex in Europa und Lateinamerika. Populistische Regierungen sind in Lateinamerika keine Ausnahmeerscheinung (37 % aller Beobachtungen (Anzahl: 190). In Europa ist die Verteilung mit mehrheitlich wenig populistischen Regierungen deutlich rechtsschief. Der überwiegende Teil der europäischen Land-Jahr Beobachtungen weist einen relativ niedrigen Populismus-Score auf (weniger als 0,5). Von 1154 Beobachtungen haben nur 114 (10 %) einen Populismus-Score von mehr als 0,5.
+
+![Verteilung des Populismusscores der Regierungen in Europa und Lateinamerika](graphs/histogram.png)
+
+Um zu analysieren, ob Verfassungsänderungen durch populistische Regierungen einen negativen Effekt auf liberale Demokratiequalität haben, verwenden wir ein hierarchisches lineares Paneldatenmodell mit „Random Intercepts" für Jahre und Länder. Die hierarchische Modellstruktur berücksichtigt Einflussfaktoren, welche zwar für alle Länder gleich sind, sich jedoch im Laufe der Zeit verändern können (Jahr Random-Intercepts) und länderspezifische Einflussfaktoren, welche über die Zeit konstant bleiben (Länder Random-Intercepts). Das bedeutet, dass die Analyse beispielsweise für institutionelle und ökonomische Unterschiede zwischen Ländern kontrolliert. Ebenso werden dadurch zeitliche Trends wie zum Beispiel die generelle ökonomische Situation oder der allgemeine Aufstieg populistischer Parteien berücksichtigt. Des Weiteren nutzen wir die abhängigen Variablen jeweils um ein Jahr verfrüht („lead"). Eine Verfassungsänderung in einem Jahr wird sich vermutlich nicht im selben Jahr, sondern erst mit etwas Verspätung auf den Demokratieindex auswirken. Dies hat mindestens zwei Gründe: Zum einen könnte die Messung des Demokratieindex im selben Jahr einer Verfassungsänderung durch die Situation vor der Verfassungsänderung beeinflusst sein. Insbesondere wenn die Verfassungsänderung erst spät innerhalb eines Jahres stattfindet, ist es möglich, dass Experten bei der Messung des Demokratieindex die Situation vor der Verfassungsänderung bewerten oder einen Durchschnitt der Situation bevor und nach der Reform bilden. Ein weiterer Grund ist, dass sich Verfassungsänderungen häufig  erst mit etwas Zeitverzug vollständig auswirken, beispielsweise, wenn die Änderungen erst noch vollständig implementiert werden müssen oder die tatsächlichen Folgen einer Änderung erst verspätet sichtbar werden. Alle Modelle wurden mithilfe des lme4-Pakets in der Statistiksoftware R gerechnet.[Vgl. @Bates.2015]
+
+# 4. Ergebnisse
+
+## 4.1 Verfassungsänderungen durch Populisten -- Eine Gefahr für die Demokratie?
+
+Zunächst nehmen wir in unserer Analyse ausschließlich europäische Länder in den Blick. Tabelle 2 zeigt für beide abhängigen Variablen die Ergebnisse von jeweils drei verschiedenen Spezifikationen des Paneldatenmodells. Die Intraklassen-Korrelationskoeffizienten von 0.864 (Demokratieindex) beziehungsweise 0.795 (Zivilgesellschaftsindex) zeigen an, dass das hierarchische Modell angemessen ist. Der Populismus-Score der Regierung ist negativ und, in Modellen (1) und (3), statistisch signifikant (p \< 0,01) sowohl mit dem Demokratieindex als auch dem Zivilgesellschaftsindex assoziiert. Ein Anstieg des Populismus-Scores vom 5 %- zum 95 %-Quantil verringert den Demokratieindex um 0,065 und den Zivilgesellschaftsindex um 0,114. Verfassungsereignisse haben in den Modellen (2) und (5) zunächst einmal keinen statistisch signifikanten Einfluss auf die beiden Indizes.
+
+\blandscape
+
+```{=tex}
+\begin{table}[!htbp] \centering 
+  \caption{Linear Regression Europe} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & \multicolumn{3}{c}{Liberal Democracy} & \multicolumn{3}{c}{Participation} \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ Populism & $-$0.096$^{***}$ &  & $-$0.077$^{***}$ & $-$0.031$^{*}$ &  & 0.001 \\ 
+Score  & (0.018) &  & (0.020) & (0.018) &  & (0.019) \\ 
+  & & & & & & \\ 
+  Constitutional &  & 0.009 & 0.018$^{*}$ &  & 0.006 & 0.025$^{***}$ \\ 
+  Change &  & (0.006) & (0.010) &  & (0.005) & (0.009) \\ 
+  & & & & & & \\ 
+ Populism x &  &  & $-$0.038 &  &  & $-$0.062$^{**}$ \\ 
+ Change &  &  & (0.030) &  &  & (0.027) \\ 
+  & & & & & & \\ 
+ Constant & 0.690$^{***}$ & 0.664$^{***}$ & 0.685$^{***}$ & 0.805$^{***}$ & 0.799$^{***}$ & 0.799$^{***}$ \\ 
+  & (0.034) & (0.032) & (0.033) & (0.026) & (0.025) & (0.025) \\ 
+  & & & & & & \\ 
+\hline \\[-1.8ex] 
+Number of Years & 30 & 30 & 30 & 30 & 30 & 30 \\ 
+Number of Governments & 39 & 39 & 39 & 39 & 39 & 39 \\ 
+sd(Year) & 0.007 & 0.006 & 0.004 & 0.009 & 0 & 0 \\ 
+sd(Country) & 0.207 & 0.201 & 0.204 & 0.16 & 0.153 & 0.154 \\ 
+ &  &  &  &  &  &  \\ 
+N & 1109 & 1108 & 1079 & 1110 & 1109 & 1080 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+```
+\elandscape
+
+In Modellen (3) und (6) kommt jeweils die Interaktion der Variablen Populismus-Score und Verfassungsereignis hinzu. Die negativen und statistisch signifikanten Effekte suggerieren, dass der Effekt von Verfassungsereignissen auf die Indizes abhängig ist vom Populismus-Score der Regierung. Interaktionseffekte lassen sich zur Interpretation am besten graphisch darstellen. Abbildung 2 veranschaulicht den Effekt von Verfassungsereignissen auf liberale Demokratie bzw. Zivilgesellschaft in Abhängigkeit vom Populismus-Score mit 95 %-Konfidenzintervallen. Wenn der Populismus-Score einer Regierung niedrig ist, haben Verfassungsänderungen einen leicht positiven Effekt. Für populistischere Regierungen ändert sich das Vorzeichen -- Verfassungsänderungen haben also nun einen negativen Effekt. Die populistische Ideologie lässt erwarten, dass sich Verfassungsänderungen durch Populisten negativ auf den Demokratieindex, jedoch möglicherweise positiv auf den Zivilgesellschaftsindex auswirken. Dies wird in der „Large-N Analyse" nur teilweise bestätigt. Verfassungsänderungen durch populistische Regierungen wirken sich negativ auf sowohl liberale Demokratie und Zivilgesellschaft aus.
+
+![Der Effekt von Verfassungsereignissen in Abhängigkeit des Populismuscores](graphs/regression_europe.pdf)
+
+## 4.2 Heterogene Effekte: Populismus und Verfassungsänderungen in Europa und Lateinamerika
+
+Wie wir bereits diskutiert haben, steht Populismus in Konflikt mit den Verfassungsmechanismen, welche die Gewaltenteilung absichern. Es bestehen jedoch auch signifikante programmatische Unterschiede zwischen populistischen Parteien. Unser vorrangiges Interesse in der vorhergehenden Analyse lag auf Europa, was einen relativ homogenen Populismusbegriff zur Folge hatte, da es sich zum einen überwiegend um rechtspopulistische Regierungsparteien handelte, die sich außerdem durch die geographische Nähe innerhalb einer Parteifamilie ähneln. Um zu erkunden, ob sich die Ergebnisse der letzten Analyse auch auf andere Teile der Welt übertragen lassen, erweitern wir in diesem Abschnitt unseren Datensatz um die Länder Lateinamerikas. Im Gegensatz zu den populistischen Regierungen in Europa innerhalb unseres Untersuchungszeitraumes überwiegt in Lateinamerika die linke Ausprägung des Populismus. In der empirischen Analyse gibt die binäre Variable „Lateinamerika" die geographische Zugehörigkeit an.
+
+Tabelle 3 fasst die Ergebnisse der Analysen mit dem erweiterten Datensatz zusammen. Um zu erfassen, ob sich der Effekt von Verfassungsänderungen durch Populisten in Europa und Lateinamerika unterscheidet, nutzen wir einen Tripel-Interaktionseffekt der Variablen „Populismus-Score", „Verfassungsereignis" und „Lateinamerika", sowie alle Interaktionen erster Ordnung in einem hierarchischen linearen Modell. Wie zuvor ist der Populismus-Score negativ mit sowohl dem Demokratieindex als auch dem Zivilgesellschaftsindex korreliert. Ebenfalls haben Verfassungsereignisse an sich auch in dem erweiterten Datensatz weder negative noch positive Auswirkungen. Interessant sind besonders die Interaktionseffekte, welche in den Modellen (3) und (6) hinzugefügt werden.
+
+\blandscape
+
+```{=tex}
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & \multicolumn{3}{c}{Liberal Democracy} & \multicolumn{3}{c}{Participation} \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ Populism & $-$0.111$^{***}$ &  & $-$0.056$^{**}$ & $-$0.078$^{***}$ &  & 0.007 \\ 
+ Score & (0.014) &  & (0.023) & (0.013) &  & (0.021) \\ 
+  & & & & & & \\ 
+ Latin America &  &  & $-$0.116$^{**}$ &  &  & $-$0.027 \\ 
+ Dummy &  &  & (0.058) &  &  & (0.042) \\ 
+  & & & & & & \\ 
+   Change &  & 0.004 & 0.018 &  & 0.009$^{*}$ & 0.025$^{**}$ \\ 
+  &  & (0.005) & (0.011) &  & (0.005) & (0.010) \\ 
+  & & & & & & \\ 
+ Change x &  &  & $-$0.055$^{*}$ &  &  & $-$0.069$^{**}$ \\ 
+ Populism &  &  & (0.032) &  &  & (0.030) \\ 
+  & & & & & & \\ 
+ Change x &  &  & $-$0.038$^{*}$ &  &  & $-$0.003 \\ 
+ Latin America &  &  & (0.020) &  &  & (0.019) \\ 
+  & & & & & & \\ 
+ Populism x &  &  & $-$0.092$^{***}$ &  &  & $-$0.117$^{***}$ \\ 
+ Latin America &  &  & (0.031) &  &  & (0.028) \\ 
+  & & & & & & \\ 
+ Change x &  &  & 0.102$^{**}$ &  &  & 0.054 \\ 
+ Populism x &  &  & (0.047) &  &  & (0.043) \\ 
+ Latin America & & & & & & \\ 
+ Constant & 0.647$^{***}$ & 0.613$^{***}$ & 0.680$^{***}$ & 0.800$^{***}$ & 0.775$^{***}$ & 0.797$^{***}$ \\ 
+  & (0.028) & (0.028) & (0.032) & (0.020) & (0.019) & (0.024) \\ 
+  & & & & & & \\ 
+\hline \\[-1.8ex] 
+Number of Years & 30 & 30 & 30 & 30 & 30 & 30 \\ 
+Number of Governments & 57 & 57 & 57 & 57 & 57 & 57 \\ 
+sd(Year) & 0.013 & 0.011 & 0.013 & 0.013 & 0.009 & 0.011 \\ 
+sd(Country) & 0.21 & 0.209 & 0.197 & 0.147 & 0.144 & 0.142 \\ 
+ &  &  &  &  &  &  \\ 
+N & 1626 & 1645 & 1596 & 1627 & 1646 & 1597 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+```
+\elandscape
+
+![Der Effekt von Verfassungsereignissen in Abhängigkeit vom Populismus-Score -- Europa und Lateinamerika im Vergleich](graphs/interaction.png)
+
+Die Hypothese hinter dem Tripel-Interaktionseffekt besagt, dass in den Ländern Lateinamerikas der Effekt von Verfassungsereignissen eine andere Abhängigkeit aufweist als in Europa. Mit anderen Worten, während Abbildung 3 zeigt, dass in Europa der positive Effekt von Verfassungsereignissen mit steigendem Populismus-Score abnimmt und letztlich verschwindet, erlauben wir in dieser Spezifikation, dass in Lateinamerika eine andere Beziehung zwischen Verfassungsereignissen und Populismus-Score besteht. Die statistisch signifikanten Tripel-Interaktionseffekte in Modell (3) und (6) bestätigen diese Vermutung.
+
+Abbildung 3 zeigt den Effekt von Verfassungsereignissen in Abhängigkeit vom Populismus-Score auf liberale Demokratiequalität (oben) und Zivilgesellschaft (unten) in Europa und Lateinamerika im Vergleich. Tatsächlich zeigen die Grafiken gegenläufige Tendenzen in Europa und Lateinamerika. Verfassungsänderungen durch populistische Regierungen in Lateinamerika haben einen statistisch signifikanten positiven Effekt auf liberale Demokratie und keinen signifikanten Effekt auf den Zivilgesellschaftsindex. Da Verfassungsänderungen durch populistische Parteien verhältnismäßig selten vorkommen, ist es wichtig, die Ergebnisse der Large-N Analysen nicht zu schnell zu generalisieren, da sie oft von nur wenigen Fällen beeinflusst werden.
+
+Die Ergebnisse zeigen jedoch, dass sich auch Fallstudien zu populistischen Verfassungsänderungen nur schwer generalisieren lassen. Die Erfahrungen in Ungarn sind ein eindrucksvolles Beispiel dafür, wie eine populistische Regierung durch Verfassungsänderungen massiv den Umbau des Staates weg von der liberalen Demokratie betreibt. Es wäre jedoch falsch, dieselben Erwartungen an ihre politischen Ziele und Vorgehensweisen auf alle populistischen Parteien zu übertragen. Hier gilt es also zu differenzieren.
+
+## 4.3 Der Inhalt von Verfassungsänderungen populistischer Regierungen
+
+Bislang hat sich unsere Analyse auf die Veränderungen des liberalen Demokratieindex bzw. des Zivilgesellschaftsindex konzentriert. Um einen detaillierteren Eindruck vom Inhalt von Verfassungsänderungen populistischer Regierungen zu gewinnen, haben wir in einem weiteren Schritt die Inhalte der Verfassungsänderungen kategorisiert. Die Stärke der Exekutive wird gemessen anhand eines von Elkins, Ginsburg und Melton entwickelten Index.[Vgl. @Melton.2014] Dieser misst, ob die Exekutive die Macht hat, Gesetzgebung oder Verfassungsänderungen zu initiieren, Verordnungen zu erlassen, den Notstand zu erklären, sowie ihre Macht gegenüber anderen Institutionen durch Vetomacht durchzusetzen, und Rechte auf ihre Verfassungsmäßigkeit prüfen zu lassen oder das Parlament aufzulösen. Der Index von Rechten der unabhängigen Justiz beruht auf Melton[Vgl @Melton.2014] und misst die Anzahl an Verfassungsnormen, die eine unabhängige Justiz stärken.[^1] Der Index politischer Rechte beinhaltet die Garantie zur freien Meinungsäußerung sowie Versammlungs-, Wissenschafts- und Pressefreiheit, Streik- und Gewerkschaftsrechte. Soziale Rechte beinhalten die Garantie eines gewissen Lebensstandards, Gesundheitsschutz auf der Arbeit, finanzielle Unterstützung, soziale Sicherhei
+
+[^1]: Darin beinhaltet sind die Unabhängigkeit der Justiz in der Verfassung, ob mindestens zwei Akteure an der Nominierung und Ernennung der Richter und Richterinnen am Verfassungsgericht beteiligt sind, ob die Entlassung von Richtern und Richterinnen stark eingeschränkt ist und sich nur auf starkes Fehlverhalten oder Verfassungsverstöße beschränkt sowie ob das Richter- und Richterinnengehälter geschützt sind. Anstatt eine lebenslange Ernennung mit einzubeziehen, inkludieren wir, ob die Wiederwahl von Richtern und Richterinnen ausgeschlossen ist.
+
+![Populismusscore der Regierung & liberaler Demokratieindex in Ungarn und Polen im Vergleich](graphs/rights_change.pdf)
+
+Abbildung 4: Inhaltliche Veränderungen von Verfassungsänderungen von populistischen Regierungen (gewichteter Populismusscore \> 0.5), die zu demokratischer Regression geführt haben.
+
+Betrachten wir nun die Inhalte populistischer (gewichteter Populismus-Score \> 0.5) Verfassungsänderungen, die zu einer Verschlechterung demokratischer Qualität (Veränderung des V-Dem Index zu liberaler Demokratie im Vergleich zum Vorjahr \< 0) geführt haben, spiegelt sich in diesen Kategorien die bereits diskutierte Komplexität des Verhältnisses zwischen Populismus und demokratischer Qualität wider. In sieben Fällen wurden durch populistische Regierungen Verfassungsänderungen vorgenommen, die wir mit den beschriebenen Indizes erfassen können und die zu einer Schwächung liberaler Demokratie geführt haben. Aber bereits diese Beispiele geben uns einen Eindruck von dem Verhältnis zwischen Populismus und konstitutioneller Regression. Während die Macht der Exekutive immer gestärkt (executive aggrandizement) wird, ist das Bild bei der Einschränkung der richterlichen Unabhängigkeit anders. In einigen Fällen wird diese eingeschränkt, in anderen bekommen Richterinnen und Richter aber auch mehr Rechte zugesprochen. Häufig wird auch die soziale Komponente der Verfassung verbessert. Diese Janusköpfigkeit der Verfassungsänderungen durch Populisten und Populistinnen wird in der Literatur immer wieder betont und zeigt sich auch, wenn wir die Verfassungsinhalte selber analysieren.[Vgl. @Mudde.2013b; @Mudde.2012b; @Blokker.2019d; @LaTorre.2020]
+
+Die Fälle zeigen jedoch auch, wie wichtig eine begründete Fallauswahl ist. Das häufig als Beispiel herangezogene Ungarn unterscheidet sich von anderen Fällen von populistischen Parteien in der Regierung, da hier nicht nur die Exekutive gestärkt, sondern auch soziale Rechte geschwächt werden. Stützen wir uns ohne Begründung auf einseitige oder falsche Beispiele, übersehen wir leicht die Komplexität des Verhältnisses zwischen Populismus und demokratischer Qualität.
+
+## 4.4 Fallstudien: Demokratische Regression mit und ohne Verfassungsänderungen
+
+Unsere Large-N Untersuchung beschränkt sich auf konstitutionelle Regression. Es stellt sich dementsprechend die Frage, ob demokratische Regression stets mit konstitutioneller Regression einhergeht. Diese Frage können wir in diesem Artikel nicht in Gänze beantworten. Erste Schlüsse lassen sich jedoch anhand eines Vergleichs von Polen und Ungarn ziehen.
+
+Beide Länder standen in den vergangenen Jahren im Blickpunkt der Diskussion demokratischer Regression unter populistischen Regierungen. In Polen regiert seit 2015 die nationalkonservative Prawo i Sprawiedliwość (PiS) in unterschiedlichen Koalitionen. In Ungarn steht die ebenfalls nationalkonservative Fidesz-Magyar Polgári Szövetség (Fidesz) mit Victor Orbán an der Spitze seit 2010 in der Regierungsverantwortung. In vielerlei Hinsicht ähneln sich die Entwicklungen in Polen und Ungarn in den letzten Jahren. In beiden Ländern haben sich die Regierungen zum Ziel gesetzt, eine „illiberale" Form von Demokratie zu etablieren. Die polnische PiS sieht in Ungarn sogar ein Vorbild für den eigenen Umbau der polnischen Demokratie.[Vgl. @Sadurski.2019]
+
+Die ähnliche Ausrichtung der Fidesz und der PiS lässt sich auch in den Daten ablesen. Abbildung 5 zeigt, dass seit den Regierungswechseln in Ungarn 2010 und Polen 2015 -- jeweils dargestellt durch eine vertikale, gestrichelte Linie -- die Länder als wesentlich populistischer eingestuft werden als zuvor. In Ungarn steigt der Populismusindex sprunghaft im Jahr 2010 von 0,31 auf 0,75, in Polen im Jahr 2015 von 0,22 auf 0,98, beinahe das Maximum der Skala. In Polen gab es bereits in den Jahren 2005 und 2006 eine durch die PiS geführte, populistische Regierung.
+
+Seit dem Regierungsantritt der Fidesz bzw. der PiS befindet sich der V-Dem Index liberaler Demokratie praktisch im freien Fall, wie sich an Abbildung 5 ablesen lässt. In beiden Ländern hat sich der Demokratieindex mittlerweile halbiert: Für Ungarn fiel der Demokratieindex von 0,782 (2009) auf 0,368 (2020), für Polen von 0,811 (2014) auf 0,467 (2020). Zusammengenommen lassen Abbildungen 5 und 6 einen engen Zusammenhang zwischen populistischen Regierungen und der Qualität liberaler Demokratie vermuten.
+
+Die ähnliche Entwicklung des Demokratieindex scheint auf ein ähnliches Vorgehen beider populistischen Regierungen beim Umbau der demokratischen Institutionen hinzuweisen. Abbildung 5 und 6 zeigt neben dem Verlauf des Demokratieindex die Jahre mit Verfassungsänderungen als graue, vertikale Linien. Während der Rückgang des Demokratieindex in Ungarn eindeutig mit Verfassungsänderungen durch die Fidesz-Regierung korrespondiert, ist dies in Polen nicht der Fall. Ein offenkundiger Grund für diesen Unterschied liegt darin, dass die PiS nicht über die nötige Zweidrittelmehrheit im polnischen Parlament, der Sejm, verfügt, um Verfassungsänderungen durchzusetzen. Orbans Fidesz in Ungarn hingegen konnte im Jahr 2010 eine absolute Mehrheit der Stimmen und aufgrund des Wahlsystems eine Zweidrittelmehrheit der Sitze im Parlament erlangen und diese auch in den darauffolgenden Wahlen bestätigen. Ausgestattet mit der nötigen Mehrheit, wurde in 2011 eine neue Verfassung verabschiedet, welche im Laufe der folgenden Jahre mehrmals angepasst wurde.
+
+![Populismusscore der Regierung & liberaler Demokratieindex in Ungarn und Polen im Vergleich](graphs/casestudies.pdf)
+
+Obwohl der PiS eine derartige Umgestaltung der polnischen Verfassung aufgrund der fehlenden parlamentarischen Mehrheit verwehrt blieb, hat das Regime dort eine andere Strategie gefunden, um ähnliche Effekte zu erzielen. Zentral bei der polnischen Abkehr von der liberalen Demokratie ist die Besetzung und Umgestaltung des Verfassungstribunals, welches die Einhaltung der Verfassung in Polen überwacht. In 2015 verweigerte Präsident Duda drei Verfassungsrichtern, welche durch das Parlament vor den Parlamentswahlen im Oktober 2015 bestätigt worden waren, den Amtseid. Die vakanten Stellen wurden dann nach den Wahlen durch von der PiS-Regierung vorgeschlagene Richter ersetzt. In weiteren Veränderungen des Verfassungstribunals wurde unter anderem das Amt der Präsidentin durch die der PiS nahestehende Richterin Julia Przylebska besetzt. Das Amt beinhaltet weitgreifende Kompetenzen zur Besetzung von Spruchgruppen und zur Benennung der jeweiligen Berichterstatterin oder des Berichterstatters. Dem wird kritisch entgegengehalten, dass durch die Umgestaltung des Verfassungstribunals eine Reihe von Gesetzen von der PiS-Regierung verabschiedet werden konnten, welche zwar objektiv gegen die Verfassung verstießen, jedoch vom durch strategische Besetzungen gelähmten Verfassungstribunal nicht als Verstöße benannt wurden.[Vgl @Sadurski.2019]
+
+Bemerkenswert ist, dass es in beiden Ländern einen beinahe identischen Rückgang des Demokratieindex gibt, hinter welchem jedoch verschiedene Strategien der Regierungen beider Länder stehen. Wenn dieselben Effekte auch durch einfache Gesetzgebungsänderungen zu erreichen sind, stellt sich die Frage, warum die Unterscheidung zwischen Verfassungs- und einfachen Rechtsänderungen so wichtig ist. Wir argumentieren, dass die Unterscheidung aufgrund der Nachhaltigkeit der Rechtsänderungen besonders wichtig ist. Es besteht ein qualitativer Unterschied zwischen einer Verfassungsänderung (Ungarn), welche nur mit einer qualifizierten Mehrheit wieder umkehrbar ist und einer Strategie basierend auf einfacher Gesetzgebung (Polen), welche nach einem Regierungswechsel auch mit einer einfachen Parlamentsmehrheit rückgängig zu machen wäre. Dieser qualitative Unterschied kann im Demokratieindex nur schwer repräsentiert werden. Ebenso zeigt die Analyse, dass Verfassungsänderungen keine notwendige Bedingung für eine deutliche Abnahme der Demokratiequalität darstellen. Demokratische und konstitutionelle Regression gehen somit nicht stets miteinander einher.
+
+# 5. Fazit
+
+In diesem Artikel haben wir untersucht, inwieweit sich demokratische Regression auf Verfassungsänderungen durch populistische Regierungen zurückführen lässt. Wir haben für den strategischen Einsatz von Verfassungsänderungen zum Abbau demokratischer Qualität den Begriff der konstitutionellen Regression eingeführt. Diese kann in unserem Ansatz sowohl einen Einfluss auf partizipative als auch liberaldemokratische Elemente einer Demokratie haben.
+
+Unsere Ergebnisse zeigen, dass es keine eindeutigen Zusammenhänge zwischen konstitutioneller Regression und populistischen Regierungen gibt. Damit stehen unsere Ergebnisse im Kontrast zu der These, die Präsenz populistischer Parteien in Regierungen wirke sich immer negativ auf die Demokratiequalität aus. Während in Europa Verfassungsänderungen durch populistische Regierungen einen negativen Effekt auf die Qualität der Demokratie haben, lässt sich in Lateinamerika sogar ein positiver Effekt beobachten. Dem entgegen stehen Fallstudien zu Ländern, zum Beispiel das von Orbán regierte Ungarn, in denen ein fundamentaler Umbau der demokratischen Institutionen durch Verfassungsänderungen der regierenden Fidesz stattgefunden hat.
+
+Unsere Ergebnisse bestätigen auch die Warnungen vor zu schnellen Schlüssen zum Verhältnis von Populismus und Verfassungsänderungen. Verschiedene Autoren und Autorinnen verweisen immer wieder auf die Heterogenität populistischer Parteien und darauf, dass Populismus auch positive Effekte, beispielsweise auf Partizipation, haben kann.[Vgl @Blokker.2019c; @LaTorre.2020; @Mudde.2013b] Unsere Analyse zeigt außerdem, dass Rückschlüsse auf ein eindeutiges Verhältnis zwischen Populismus, Verfassungsänderungen und demokratischer Regression auch aufgrund der Seltenheit von Verfassungsreformen nicht möglich sind. In unserer Large-N Studie wird deutlich, dass die Erfahrungen in Ungarn nicht übertragbar auf populistische Parteien in Lateinamerika sind.
+
+Trotz dieser Einschränkungen finden wir auch deutliche Muster. Wie bereits von Bermeo betont, liegt der Kern demokratischer Regression im executive aggrandizement.[Vgl. @Bermeo.2016] An dieser Stelle ähneln sich auch Verfassungsänderungen von populistischen Regierungen, die zu demokratischer Regression führen. Durch diese Reformen werden zwar teilweise auch soziale Rechte gestärkt; worin sich die Änderungen jedoch sehr häufig überschneiden, ist, dass die Macht in der Exekutive zentralisiert wird.
+
+Bei diesen Analysen muss beachtet werden, dass Verfassungsänderungen relativ seltene Ereignisse sind und meistens nur mit einer qualifizierten Mehrheit im Parlament umgesetzt werden können -- Mehrheiten, über welche populistische Parteien häufig nicht verfügen. Dementsprechend müssen bei gewünschten Verfassungsänderungen auch Oppositionsparteien miteinbezogen werden. Der Vergleich zwischen Polen und Ungarn hat gezeigt, dass populistische Regierungen auch ohne Verfassungsänderungen durch Reformen und Neubesetzungen des Verfassungsgerichts und durch Gesetzgebung unterhalb der Verfassungsebene gravierende Veränderungen durchsetzen können.
+
+### References
+
+::: {#refs}
+:::
