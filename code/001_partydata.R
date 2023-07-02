@@ -4,10 +4,12 @@ library(vdemdata)
 
 # VParty ----
 
+# Import Data and filter to timeframe
 vparty %>% 
   filter(year>1989) -> 
   vparty2
 
+# Choose relevant variables
 vparty2 %>% 
   select(v2paenname,v2paid,country_name,year,
          country_id,e_regiongeo,v2xpa_antiplural,v2xpa_popul,
@@ -18,7 +20,9 @@ vparty2 %>%
 
 # partyfacts ----
 
-file_name <- "partyfacts-mapping.csv"
+# To improve the matching between datasets, partyfacts is imported
+
+file_name <- "data/partyfacts-mapping.csv"
 if( ! file_name %in% list.files()) {
   url <- "https://partyfacts.herokuapp.com/download/external-parties-csv/"
   download.file(url, file_name)
@@ -34,9 +38,10 @@ partyfacts |>
 
 # match with popuList ----
 
+# Populist Import
 popuList <- readxl::read_xlsx("data/popuList.xlsx")
 
-# partyfacts
+# save populis partyfacts_id which is later used to match with vparty
 
 partyfacts_lookup |> 
   filter(dataset_key == "parlgov") |> 
@@ -44,13 +49,14 @@ partyfacts_lookup |>
   distinct(partyfacts_id, .keep_all = TRUE) ->
   partyfacts_parlgov
 
-# change start and end of populist "area" of each party to interval
 popuList |> 
+  # match with partyfacts_id
   left_join(partyfacts_parlgov, by = c("parlgov_id" = "dataset_party_id")) |> 
   mutate(partyfacts_id = if_else(
     is.na(partyfacts_id.x), partyfacts_id.y, partyfacts_id.x
   )) |> 
-  select(-partyfacts_id.x, partyfacts_id.y) |> 
+  select(-partyfacts_id.x, partyfacts_id.y) |>
+  # change start and end of populist "area" of each party to interval
   mutate(populist_start = if_else(populist_start < 1990, 1990, populist_start),
          populist_start = if_else(populist_start == 2100, 2019, populist_start),
          populist_end = if_else(populist_end == 2100, 2020, populist_end),
@@ -58,10 +64,11 @@ popuList |>
                                       ymd(populist_end, truncated = 2L))) ->
   popuList
 
-# select columns for matching
+# select columns for matching with vparty
 popuList_short <- popuList |> 
   select(partyfacts_id, party_name_english, populist_interval, country_name)
 
+# keep each party only once 
 popuList_shorter <- popuList_short |> 
   select(partyfacts_id, populist_interval) |> 
   distinct(partyfacts_id, .keep_all = TRUE)
@@ -74,8 +81,9 @@ popuList |>
   mutate(dataset = "PopuList") ->
   popuList_countries
 
-# match with vparty2 on party-country base
+# match with vparty
 vparty2 |> 
+  # match by party & country name
   left_join(popuList_short,
             by = c("v2paenname" = "party_name_english",
                    "country_name" = "country_name")) |>
@@ -84,19 +92,22 @@ vparty2 |>
   left_join(popuList_shorter, 
             by = c("pf_party_id" = "partyfacts_id"),
             na_matches = "never") |>  
-  # choose the interval that's not NA
+  # choose the interval that's not NA (based on two matching ways)
   mutate(populist_interval = if_else(
     !is.na(populist_interval.x), populist_interval.x, populist_interval.y)
   ) |> 
+  # only keep the final colmn
   select(-populist_interval.x, -populist_interval.y) |> 
   # now check for each year of party in vparty dataset whether it is included in pop interval
   mutate(rooduijn = if_else(
-    # if there is no interval for the party check whether country is in popuList
+    # if there is no interval for the party check whether country is in popuList 
+    # that would mean its not populist (but maybe eurosceptic and included because of that)
     is.na(populist_interval), if_else(
       country_name %in% popuList$country_name, 0, NA # 0 if country included, NA if it isnt
     ), if_else(
       ymd(year, truncated = 2L) %within% populist_interval, 1, 0)
     ),
+    # is the party a senior party in government and coded as poulist?
     rooduijn_senior = case_when(
       rooduijn == 1 & v2pagovsup == 0 ~ 1,
       is.na(rooduijn) ~ NA,
@@ -107,6 +118,8 @@ vparty2 |>
 # Coding the V-Party Dataset ----
 
 # calculate populism score of government
+
+# rename due to older naming in code
 vparty2 -> 
   df
 
@@ -130,7 +143,9 @@ vparty_governments %>%
   mutate(gov_seatshare = sum(v2paseatshare), 
          # calculate weight of government parties
          weight = v2paseatshare/gov_seatshare,
+         # code whether any government party is populist according to popuList
          rooduijn_government = if_else(sum(rooduijn) > 0, "Populist", "Non-Populist"),
+         # code whether senior party is populist accoring to popuList
          rooduijn_government_senior = if_else(sum(rooduijn_senior) > 0, "Populist", "Non-Populist")) %>% 
   group_by(country_name, year, gov_seatshare, e_regiongeo, rooduijn_government, rooduijn_government_senior) %>% 
   # calulcate mean of populism score and weighted populism score per year of country (= per government)
@@ -139,6 +154,7 @@ vparty_governments %>%
             gov_popul_weighted = sum(v2xpa_popul*weight),
             # calculate weighted left - right econ
             gov_ideol_mean = mean(v2pariglef),
+            # calculate weighted ideology
             gov_ideol_weighted = sum(v2pariglef*weight),
             no_govparties = n(),
             .groups = "drop") |>

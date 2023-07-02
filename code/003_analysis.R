@@ -2,7 +2,6 @@
 
 library(tidyverse)
 library(lubridate)
-library(rio)
 library(stargazer)
 library(rms)
 library(interplot)
@@ -18,27 +17,40 @@ extrafont::loadfonts()
 
 theme_gridY <- theme_ipsum_rc(grid = "Y") +
   theme(
-    axis.text = element_text(size = 8),
-    axis.title = element_text(size = 10),
-    strip.text = element_text(size = 10),
+    axis.title.x = element_text(size = 14),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title.y.left = element_text(size = 14),
+    strip.text = element_text(size = 14),
+    plot.title = element_text(size = 18),
+    plot.subtitle = element_text(size = 16),
     legend.position = "bottom",
-    legend.text = element_text(size = 10),
-    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 16),
+    legend.title = element_text(size = 12),
     legend.key.size = unit(0.5, "cm"),
     plot.margin = grid::unit(c(1, 0.5, 0.5, 0), "mm"),
     panel.border = element_rect(colour = "darkgrey", fill = NA, linewidth = 1)
   )
-
-# There is an additional case in the org. data (Moldova 2009 is doubled)
-df2 |>  filter(country == "Moldova" & year == 2009) -> add
-df2 |>  bind_rows(add) -> df2_inspect
 
 # set theme
 theme_set(theme_gridY)
 
 # Data ----
 
-ccpc_vdem <- readRDS("data/ccpc_vdem_eu_la") 
+ccpc_vdem <- readRDS("data/ccpc_vdem_eu_la.rds") 
+
+# There is mistake in the original data: Moldova 2009 is doubled
+# If you want to inspect the orginal version, uncomment this code
+
+# df2 |>  
+#   filter(country == "Moldova" & year == 2009) -> 
+#   add
+# 
+# df2 |>  
+#   bind_rows(add) -> 
+#   df2
+
+# Filter Data
 
 ccpc_vdem|>
   # at time of analysis dataset only had data till 2020, 1990 democratization in ee
@@ -106,6 +118,7 @@ m1cs <- lmer(lead(v2x_cspart, 1) ~ gov_popul_weighted + (1 | country) + (1 | yea
 summary(m1cs)
 
 # change in constitution in general -> part
+# there is now a warning which was not included in the data which had one duplicated case
 m2cs <- lmer(lead(v2x_cspart, 1) ~ evnt + (1 | country) + (1 | year), data = df2)
 summary(m2cs)
 
@@ -225,8 +238,8 @@ european_effects <- p1 + p2
 
 european_effects
 
-ggsave("results/regression_europe.pdf", width = 15, height = 6, units = "in", device = cairo_pdf)
-ggsave("results/regression_europe.png", width = 15, height = 6, units = "in", device = "png")
+ggsave("results/graphs/regression_europe.pdf", width = 15, height = 6, units = "in", device = cairo_pdf)
+ggsave("results/graphs/regression_europe.png", width = 15, height = 6, units = "in", device = "png")
 
 # Analysis (Latin America & Europe) ----
 
@@ -360,22 +373,9 @@ meff %>%
 
 ## update theme of plots
 
-theme_gridY <- theme_ipsum_rc(grid = "Y") +
-  theme(
-    axis.text = element_text(size = 8),
-    axis.title = element_text(size = 10),
-    strip.text.x = element_text(size = 10, hjust = 0),
-    strip.placement = "inside",
-    legend.text = element_text(size = 10),
-    legend.title = element_text(size = 10),
-    legend.key.size = unit(0.5, "cm"),
-    plot.title = element_text(size = 12, hjust = -0.101),
-    plot.subtitle = element_text(size = 12, face = "plain", hjust = -0.077),
-    plot.margin = grid::unit(c(1, 0.5, 0.5, 0), "mm"),
-    panel.border = element_rect(colour = "darkgrey", fill = NA, linewidth = 1)
-  )
-
-theme_set(theme_gridY)
+theme_update(axis.title.x = element_text(size = 14),
+             axis.text.x = element_text(size = 12),
+             axis.title.y.left = element_text(size = 14))
 
 ## Final Plot for Liberal Democracy 
 
@@ -398,8 +398,8 @@ plot_ld
 
 plot_ld
 
-ggsave("results/liberaldem_interaction.pdf", width = 14, height = 6, units = "in", dev = cairo_pdf)
-ggsave("results/liberaldem_interaction.png", width = 14, height = 6, units = "in", dev = "png")
+ggsave("results/graphs/liberaldem_interaction.pdf", width = 14, height = 6, units = "in", dev = cairo_pdf)
+ggsave("results/graphs/liberaldem_interaction.png", width = 14, height = 6, units = "in", dev = "png")
 
 ### Plotting for Participation ----
 
@@ -423,6 +423,10 @@ meff_cs |>
 
 # Final Plot Participation 
 
+theme_update(axis.title.x = element_blank(),
+              axis.text.x = element_blank(),
+              axis.ticks.x = element_blank())
+
 ggplot(
   plotdf_cs,
   aes(x = gov_popul_weighted, y = AME)
@@ -439,31 +443,13 @@ ggplot(
     breaks = c(0, 0.25, 0.5, 0.75, 1),
     limits = c(0, 1)
   ) +
-  ylim(-0.1, 0.1) +
-  ## update theme of plots (different to liberal democracy for combination of plots later)
-  theme(panel.spacing = unit(1, "lines")) +
-  theme(
-    axis.text = element_text(size = 8),
-    axis.title = element_text(size = 10),
-    strip.text = element_text(size = 10, vjust = 10),
-    legend.position = "bottom",
-    legend.text = element_text(size = 10),
-    legend.title = element_text(size = 10),
-    legend.key.size = unit(0.5, "cm"),
-    plot.title = element_text(size = 12, face = "plain", hjust = -0.101),
-    plot.subtitle = element_text(size = 12, face = "plain", hjust = -0.077),
-    plot.margin = grid::unit(c(1, 0.5, 0.5, 0), "mm"),
-    panel.border = element_rect(colour = "darkgrey", fill = NA, linewidth = 1),
-    axis.title.x = element_blank(),
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank()
-  ) ->
+  ylim(-0.1, 0.1)  ->
 plot_cs
 
 plot_cs
 
-ggsave("results/participationdem_interaction.pdf", width = 14, height = 6, units = "in", dev = cairo_pdf)
-ggsave("results/participation_interaction.png", width = 14, height = 6, units = "in", dev = "png")
+ggsave("results/graphs/participationdem_interaction.pdf", width = 14, height = 6, units = "in", dev = cairo_pdf)
+ggsave("results/graphs/participation_interaction.png", width = 14, height = 6, units = "in", dev = "png")
 
 ### Combined Final Plots for Paper ----
 
@@ -471,5 +457,21 @@ patchworked <- plot_cs + plot_ld + plot_layout(ncol = 1)
 
 patchworked
 
-ggsave("results/interaction.pdf", width = 8, height = 8, units = "in", dev = cairo_pdf)
-ggsave("results/interaction.png", width = 8, height = 8, units = "in", dev = "png")
+ggsave("results/graphs/interaction.pdf", width = 8, height = 8, units = "in", dev = cairo_pdf)
+ggsave("results/graphs/interaction.png", width = 8, height = 8, units = "in", dev = "png")
+
+# Histogram ----
+
+theme_set(theme_gridY)
+
+df4 |> 
+  mutate(latin = if_else(latin == 0, "Europe", "Latin America")) |> 
+  filter(!is.na(latin) & !is.na(gov_popul_weighted)) |> 
+  ggplot() +
+  geom_histogram(aes(gov_popul_weighted)) +
+  facet_wrap(~ latin) +
+  labs(x = "Weighted Populism Score per Government",
+       y = "")
+
+ggsave("results/graphs/histogram.pdf", width = 8, height = 5, units = "in", dev = cairo_pdf)
+ggsave("results/graphs/histogram.png", width = 8, height = 5, units = "in")
