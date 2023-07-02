@@ -9,10 +9,15 @@ This repository includes all replication materials for the paper [König, Jasmin
 ## Structure
 
 💻 All code is in the folder /code. 
+
 > 001_partydata.R combines [V-Party](https://www.v-dem.net/data/v-party-dataset/), [Ruth-Lovell & Grahn](https://ejpr.onlinelibrary.wiley.com/doi/10.1111/1475-6765.12564) and [PopuList](https://popu-list.org/) data. All data is combined based on a party - election year basis and then tranformed into a government - election year structure.
+
 > 002_democracydata.R combines the party data with [V-Dem](https://www.v-dem.net/data/v-party-dataset/) and the [Comparative Constitutions Project](https://comparativeconstitutionsproject.org/download-data/). After joining the dataframes, we have a government - year structure. The data from the party datasets is filled until the next known observation.
+
 > 003_analysis.R includes all regression analysis and plotting of effects.
+
 > 004_casestudies.R includes code for the plots on Hungary and Poland.
+
 > 005_content.R includes the plotting of rights changes.
 
 📈 All graphs is in the folder /results/graphs. 
@@ -20,7 +25,9 @@ This repository includes all replication materials for the paper [König, Jasmin
 📄 The paper is at /results/working-paper.pdf
 
 💾 All data is in the folder /data
+
 > The data used for the analysis in the paper is at /data/ccpc_vdem_eu_la.rds
+
 > The data used for the blog is at /data/blog/ccpc_vdem_eu_la_blog.csv
 
 ## Abstract
